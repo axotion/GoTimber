@@ -7,6 +7,8 @@ Client for [timber.io](https://timber.io/) written in pure GO. See example for m
 ```
 go get github.com/axotion/GoTimber
 ```
+## Effect of example usage
+![Screen of ](https://imgur.com/MagefjBl.png)
 
 ## Example usage 
 

@@ -22,28 +22,11 @@ type GoTimber struct {
 	client *HttpClient
 }
 
-type Http struct {
-	Method     string `json:"method,omitempty"`
-	Path       string `json:"path,omitempty"`
-	RemoteAddr string `json:"remote_addr,omitempty"`
-	RequestID  string `json:"request_id,omitempty"`
-}
-
-type User struct {
-	ID    int    `json:"id,omitempty"`
-	Name  string `json:"name,omitempty"`
-	Email string `json:"email,omitempty"`
-}
-
-type Context struct {
-	Http *Http
-	User *User
-}
 type goTimberJson struct {
 	Dt      string      `json:"dt"`
 	Level   string      `json:"level"`
 	Message string      `json:"message"`
-	Context *Context    `json:"context,omitempty"`
+	Context interface{} `json:"context,omitempty"`
 	Event   interface{} `json:"event,omitempty"`
 }
 

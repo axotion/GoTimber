@@ -13,26 +13,44 @@ go get github.com/axotion/GoTimber
 ## Example usage 
 
 ```go
-timber := gotimber.NewGoTimber("timber-token-api")
+package main
+
+import (
+	"gotimber/gotimber"
+	"time"
+)
+
+func main() {
+	timber := gotimber.NewGoTimber("2142_6ed835c3e5a9354a:8480d4fab4c9288bd96d476a0f253f0aa8ab8eba476d2b4c35ed1722e53aab5a")
 
 	//Send only message
 	go timber.Info("Async info test")
 	go timber.Alert("Async alert test")
-	
+
 	//Set manually fields for Context
 	timberStructure := timber.GetTimberStructure()
 	timberStructure.Dt = time.Now().String()
 	timberStructure.Level = "warning"
 	timberStructure.Message = "Hello World!"
 
-	user := &gotimber.User{Email: "test@test.com", ID: 1, Name: "John SMITH"}
-	http := &gotimber.Http{Method: "POST", Path: "/test", RemoteAddr: "127.0.0.1", RequestID: "123432"}
-	timberStructure.Context = &gotimber.Context{Http: http, User: user}
+	//Custom context #1 way (or just create your own struct)
 
-	//Custom event
+	httpContext := struct {
+		UserID int `json:"user_id"` 
+	} { UserID: 1}
+
+	timberStructure.Context = struct {
+		HTTP interface{} `json:"http"`
+	}{ HTTP: httpContext}
+
+	//Custom event #2 way
 	timberStructure.Event = map[string]map[string]string{"payment": map[string]string{"id": "1", "success": "ok"}, "order": map[string]string{"id": "2"}}
 
 	go timber.SendCustomTimberStructure(timberStructure)
-    time.Sleep(time.Second)
+	time.Sleep(time.Second)
+}
+
+
+
     
 

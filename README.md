@@ -21,7 +21,7 @@ import (
 )
 
 func main() {
-	timber := gotimber.NewGoTimber("2142_6ed835c3e5a9354a:8480d4fab4c9288bd96d476a0f253f0aa8ab8eba476d2b4c35ed1722e53aab5a")
+	timber := gotimber.NewGoTimber("2142_6ed835c3e5a9354a:8480d4fab4c9288bd96d476a0f253f0aa8ab8eba476d2b4c35ed1722e53aab5a") //Example api token format
 
 	//Send only message
 	go timber.Info("Async info test")

@@ -43,66 +43,57 @@ func NewGoTimber(apiKey string) *GoTimber {
 	return goTimber
 }
 
-func (t *GoTimber) Warning(message string) *GoTimber {
-	goTimberStruct := &goTimberJson{Dt: time.Now().String(), Level: _warning, Message: message}
+func prepareLogDataToSend(message string, level string) []byte {
+	goTimberStruct := &goTimberJson{Dt: time.Now().String(), Level: level, Message: message}
 	goTimberJSON, err := json.Marshal(goTimberStruct)
 	checkError(err)
+	return goTimberJSON
+}
+
+func (t *GoTimber) Warning(message string) *GoTimber {
+	goTimberJSON := prepareLogDataToSend(message, _warning)
 	t.client.postLog(goTimberJSON)
 	return t
 }
 
 func (t *GoTimber) Debug(message string) *GoTimber {
-	goTimberStruct := &goTimberJson{Dt: time.Now().String(), Level: _debug, Message: message}
-	goTimberJSON, err := json.Marshal(goTimberStruct)
-	checkError(err)
+	goTimberJSON := prepareLogDataToSend(message, _debug)
 	t.client.postLog(goTimberJSON)
 	return t
 }
 
 func (t *GoTimber) Info(message string) *GoTimber {
-	goTimberStruct := &goTimberJson{Dt: time.Now().String(), Level: _info, Message: message}
-	goTimberJSON, err := json.Marshal(goTimberStruct)
-	checkError(err)
+	goTimberJSON := prepareLogDataToSend(message, _info)
 	t.client.postLog(goTimberJSON)
 	return t
 }
 
 func (t *GoTimber) Notice(message string) *GoTimber {
-	goTimberStruct := &goTimberJson{Dt: time.Now().String(), Level: _notice, Message: message}
-	goTimberJSON, err := json.Marshal(goTimberStruct)
-	checkError(err)
+	goTimberJSON := prepareLogDataToSend(message, _notice)
 	t.client.postLog(goTimberJSON)
 	return t
 }
 
 func (t *GoTimber) Error(message string) *GoTimber {
-	goTimberStruct := &goTimberJson{Dt: time.Now().String(), Level: _error, Message: message}
-	goTimberJSON, err := json.Marshal(goTimberStruct)
-	checkError(err)
+	goTimberJSON := prepareLogDataToSend(message, _error)
 	t.client.postLog(goTimberJSON)
 	return t
 }
 
 func (t *GoTimber) Critical(message string) *GoTimber {
-	goTimberStruct := &goTimberJson{Dt: time.Now().String(), Level: _critical, Message: message}
-	goTimberJSON, err := json.Marshal(goTimberStruct)
-	checkError(err)
+	goTimberJSON := prepareLogDataToSend(message, _critical)
 	t.client.postLog(goTimberJSON)
 	return t
 }
 
 func (t *GoTimber) Alert(message string) *GoTimber {
-	goTimberStruct := &goTimberJson{Dt: time.Now().String(), Level: _alert, Message: message}
-	goTimberJSON, err := json.Marshal(goTimberStruct)
-	checkError(err)
+	goTimberJSON := prepareLogDataToSend(message, _alert)
 	t.client.postLog(goTimberJSON)
 	return t
 }
 
 func (t *GoTimber) Emergency(message string) *GoTimber {
-	goTimberStruct := &goTimberJson{Dt: time.Now().String(), Level: _emergency, Message: message}
-	goTimberJSON, err := json.Marshal(goTimberStruct)
-	checkError(err)
+	goTimberJSON := prepareLogDataToSend(message, _emergency)
 	t.client.postLog(goTimberJSON)
 	return t
 }

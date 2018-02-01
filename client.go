@@ -12,8 +12,7 @@ type HttpClient struct {
 }
 
 func (c HttpClient) postLog(jsonLog []byte) {
-	//48H timeout for http client
-	client := &http.Client{Timeout: time.Second * 3600 * 48}
+	client := &http.Client{Timeout: time.Second * 5}
 	req, err := http.NewRequest("POST", c.address, bytes.NewBuffer(jsonLog))
 	checkError(err)
 	req.Header.Add("authorization", "Basic "+c.gotimber.apiKey)
